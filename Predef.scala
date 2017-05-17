@@ -5,7 +5,7 @@
 ** /____/\___/_/ |_/____/_/ | |                                         **
 **                          |/                                          **
 \*                                                                      */
-test 
+ 
 package scala
 
 import scala.language.implicitConversions
