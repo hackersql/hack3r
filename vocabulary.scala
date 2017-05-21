@@ -1,0 +1,2 @@
+继承 inheritance
+多态 polymorphism
