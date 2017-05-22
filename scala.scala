@@ -79,11 +79,53 @@ scala> val s = identity("Hello Scala")
 s: String = Hello Scala 
 
 16.用中缀点记法调用方法 <class instance>.<method-name>[(<paramete-name>)]  类实例名.方法名(参数值)
+17.操作符记法 <objec-name> <method-name> <paramete-name> 
+NOTE：和中缀点记法不同的是操作符记法是使用空格来分隔对象、操作符方法和方法的参数（要求方法只有一个参数）
+每次写2+3时，scala编译器会把它识别为操作符记法，并相应地处理，就好像写为2.+(3)一样，这里调用了值为2的
+一个Int加法方法，并提供参数3，最后会返回值5.
 
+18.函数字面量 ([<参数名>: <类型>, ... ]) => 条件表达式
+scala> def max(a: Int, b: Int) = if (a > b) a else b
+max: (a: Int, b: Int)Int
+函数赋值
+scala> val maximize: (Int, Int) => Int = max
+maximize: (Int, Int) => Int = <function2>
+函数字面量
+scala> val maximize = (a: Int, b: Int) => if (a > b) a else b
+maximize: (Int, Int) => Int = <function2>
 
+scala> def logstart() = "=" * 50 + "\nStarting NOW\n" + "=" * 50
+logstart: ()String
+函数赋值
+scala> val start:() => String = logstart
+start: () => String = <function0>
+函数字面量
+scala> val start = () => "=" * 50 + "\nStarting NOW\n" + "=" * 50
+start: () => String = <function0>
 
+scala> println(start())
+==================================================
+Starting NOW
+==================================================
 
+REPL将函数字面量称为function0，这是无输入的函数的名字。不过它不是值类型，
+实际上类型推到为 ( ) => String 这是一个返回字符串的无输入函数。
 
+scala> def safeString(s: String, f: String => String) = {
+     |   if(s != null) f(s) else s
+     | }
+safeString: (s: String, f: String => String)String
+
+scala> safeString(null, (s: String) => s.reverse)
+res4: String = null
+
+scala> safeString("Ready", (s: String) => s.reverse)
+res5: String = ydaeR
+由于已经定义了函数参数f的类型为String => String,所以可以从函数字面量中删除显式类型，
+因为编译器可以推导出它的类型，如果删除显式类型意味着我们可以从函数字面量中去除小括号，
+因为对于单个无类型的输入没有必要加小括号，简化其写法。
+scala> safeString("Ready", s => s.reverse)
+res6: String = ydaeR
 
 
 
