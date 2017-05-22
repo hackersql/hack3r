@@ -68,7 +68,7 @@ scala> val s: String = identity("Hello Scala")
 下面是使用类型参数定义的同一性函数，这样它就可以用于你提供的任何类型了：
 scala> def identity[T](a: T): T = a
 identity: [T](a: T)T      
-
+这里的类型T是一个表示通用的输入类型
 scala> val s: String = identity[String]("Hello Scala")
 s: String = Hello Scala
 
@@ -126,9 +126,118 @@ res5: String = ydaeR
 因为对于单个无类型的输入没有必要加小括号，简化其写法。
 scala> safeString("Ready", s => s.reverse)
 res6: String = ydaeR
+占位符语法调用
+scala> safeString("Ready", _.reverse)
+res7: String = ydaeR
+
+19.定义一个满足任何输入类型的函数
+scala> def triple[A,B](a: A, b: A, c: A, f: (A, A, A) => B) = f(a, b, c)
+triple: [A, B](a: A, b: A, c: A, f: (A, A, A) => B)B
+A表示通用的输入类型 A => B，B表示返回值类型
+scala> triple[Int, Int](23, 92, 14, _ * _ + _)
+res8: Int = 2130
+
+scala> triple[Int, Double](23, 92, 14, 2.0 * _ / _ / _)
+res16: Double = 0.03571428571428571
+
+scala> triple[Int, Boolean](23, 92, 14, _ < _ + _)
+res14: Boolean = true
+
+20.函数柯里化
+scala> def factor(x: Int)(y: Int) = y % x == 0
+factor: (x: Int)(y: Int)Boolean
+
+scala> val isEven = factor(2) _
+isEven: Int => Boolean = <function1>
+
+scala> val z = isEven(32)
+z: Boolean = true
+
+21.部分应用函数
+scala> def factor(x: Int, y: Int) = y % x == 0
+factor: (x: Int, y: Int)Boolean
+
+scala> val f = factor _
+f: (Int, Int) => Boolean = <function2>
+通配符赋值
+scala> val x = f(4, 5)
+x: Boolean = false
+
+scala> val multiple = factor(4, _: Int)
+multiple: Int => Boolean = <function1>
+部分应用函数
+scala> val y = multiple(55)
+y: Boolean = false
+
+22.传名参数 <参数名> => <返回值类型> x: => Int
+当一个函数的参数中出现x: => Int这种形式，表明它是一个有传名参数的函数。
+scala> def doubles(x: => Int) = {
+     |   println("NOW Doubleing " + x)
+     |   x * 2
+     | }
+doubles: (x: => Int)Int
+传值
+scala> doubles(5)
+NOW Doubleing 5
+res17: Int = 10
+
+scala> def f(i: Int) = {println(s"Hello from f($i)"); i }
+f: (i: Int)Int
+传函数
+scala> doubles(f(4))
+Hello from f(4)
+NOW Doubleing 4
+Hello from f(4)
+res18: Int = 8
+由于doubles方法引用了x两次（见176行），所以Hello消息出现了两次。
+
+23.偏函数partial function
+scala> val statusHandler: Int => String = {
+     |   case 200 => "Okay"
+     |   case 400 => "Your Error"
+     |   case 500 => "Our Error"
+     | }
+statusHandler: Int => String = <function1>
+
+scala> statusHandler(200)
+res20: String = Okay
+
+scala> statusHandler(500)
+res21: String = Our Error
+
+scala> statusHandler(300)
+scala.MatchError: 300 (of class java.lang.Integer)
+    at $anonfun$1.apply(<console>:7)
+    at $anonfun$1.apply(<console>:7)
+    ...
+
+case _   => "default "    
+
+scala> statusHandler(300)
+res23: String = "default "
 
 
 
+24.
+scala> def timer[A](f: => A): A = {
+     |   def now = System.currentTimeMillis
+     |   val start = now;
+     |   val a = f
+     |   val end = now
+     |   println(s"Executed in ${end - start} ms")
+     |   a
+     | }
+timer: [A](f: => A)A
+
+scala> val veryRandomAmount = timer {
+     |   util.Random.setSeed(System.currentTimeMillis)
+     |   for (i <- 1 to 100000) util.Random.nextDouble
+     |   util.Random.nextDouble
+     | }
+Executed in 15 ms
+veryRandomAmount: Double = 0.651757645434543
+
+25.列表List是一个不可变的单链表 List(1, 2, 3, ... )
 ---------------------------------------fold------------------------------------------    
    
 def fold[A1 >: A](z: A1)(op: (A1, A1) => A1): A1 = foldLeft(z)(op)
