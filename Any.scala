@@ -49,8 +49,10 @@ abstract class Any {
    *  它是可传递的：对于'Any'类型的任何实例'x'，'y'和'z'，
    *  如果'x.equals（y）'返回'true'和'y.equals（z）'返回'true'，
    *  那么'x.equals（z）'应该返回'true'。
-   *  If you override this method, you should verify that your implementation remains an equivalence relation.如果您重写此方法，则应验证您的实现是否保持等价关系。
-   *  Additionally, when overriding this method it is usually necessary to override `hashCode` to ensure that另外，当覆盖这个方法时，通常需要重写`hashCode'以确保这一点
+   *  If you override this method, you should verify that your implementation remains an equivalence relation.
+   *  如果您重写此方法，则应验证您的实现是否保持等价关系。
+   *  Additionally, when overriding this method it is usually necessary to override `hashCode` to ensure that
+   *  另外，当覆盖这个方法时，通常需要重写`hashCode'以确保这一点
    *  objects which are "equal" (`o1.equals(o2)` returns `true`) hash to the same [[scala.Int]].
    *  “equal”对象（`o1.equals（o2）`返回`true`）哈希到相同的[[scala.Int]]。
    *  (`o1.hashCode.equals(o2.hashCode)`).
@@ -66,7 +68,8 @@ abstract class Any {
    *  计算对象的哈希码值。
    *  The default hashing algorithm is platform dependent.
    *  默认散列算法依赖于平台
-   *  Note that it is allowed for two objects to have identical hash codes (`o1.hashCode.equals(o2.hashCode)`) yet请注意，允许两个对象具有相同的哈希码
+   *  Note that it is allowed for two objects to have identical hash codes (`o1.hashCode.equals(o2.hashCode)`) yet
+   *  请注意，允许两个对象具有相同的哈希码
    *  但是(`o1.hashCode.equals(o2.hashCode)`)不等于(`o1.equals(o2)` returns `false`)
    *  not be equal (`o1.equals(o2)` returns `false`).  A degenerate implementation could always return `0`.
    *  However, it is required that if two objects are equal (`o1.equals(o2)` returns `true`) that they have identical hash codes (`o1.hashCode.equals(o2.hashCode)`).  Therefore, when overriding this method, be sure to verify that the behavior is consistent with the `equals` method.
@@ -137,7 +140,8 @@ abstract class Any {
    *  not possible to check whether the contents of the list are of the specified type.
    *  在后一个示例中，因为类型参数作为编译的一部分被擦除，
    *  所以不可能检查列表的内容是否是指定的类型。
-   *  @return `true` if the receiver object is an instance of erasure of type `T0`; `false` otherwise.如果接收器对象是“T0”类型的擦除实例，则返回“true”; 否则返回“假”。
+   *  @return `true` if the receiver object is an instance of erasure of type `T0`; `false` otherwise.
+   *  如果接收器对象是“T0”类型的擦除实例，则返回“true”; 否则返回“假”。
    */
   final def isInstanceOf[T0]: Boolean = sys.error("isInstanceOf")
 
@@ -152,8 +156,8 @@ abstract class Any {
    *  In the latter example, because the type argument is erased as part of compilation it is
    *  not possible to check whether the contents of the list are of the requested type.
    *  在后一个示例中,由于类型参数作为编译的一部分被擦除，因此无法检查列表的内容是否为请求的类型
-
-   *  @throws ClassCastException if the receiver object is not an instance of the erasure of type `T0`.如果接收者对象不是“T0”类型的擦除实例,则抛出一个ClassCastException异常。
+   *  @throws ClassCastException if the receiver object is not an instance of the erasure of type `T0`.
+   *  如果接收者对象不是“T0”类型的擦除实例,则抛出一个ClassCastException异常。
    *  @return the receiver object.接收器对象
    */
   final def asInstanceOf[T0]: T0 = sys.error("asInstanceOf")
