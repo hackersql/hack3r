@@ -238,6 +238,19 @@ Executed in 15 ms
 veryRandomAmount: Double = 0.651757645434543
 
 25.列表List是一个不可变的单链表 List(1, 2, 3, ... )
+
+26.def printArgs(args: Array[String]): Unit = {
+     for (arg <- args)
+     println(arg)
+     args.foreach(println)
+}
+
+
+
+
+
+
+
 ---------------------------------------fold------------------------------------------    
    
 def fold[A1 >: A](z: A1)(op: (A1, A1) => A1): A1 = foldLeft(z)(op)
