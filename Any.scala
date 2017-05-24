@@ -58,7 +58,7 @@ abstract class Any {
    *  (`o1.hashCode.equals(o2.hashCode)`).
    *
    *  @param  that    the object to compare against this object for equality.
-   *                  将对象与此对象进行比较以相等
+   *                  将对象与此对象进行比较看是否相等
    *  @return         `true` if the receiver object is equivalent to the argument; 
    *                  `false` otherwise.如果接收对象等同于参数则为true，否则为false
    */
@@ -68,10 +68,10 @@ abstract class Any {
    *  计算对象的哈希码值。
    *  The default hashing algorithm is platform dependent.
    *  默认散列算法依赖于平台
-   *  Note that it is allowed for two objects to have identical hash codes (`o1.hashCode.equals(o2.hashCode)`) yet
+   *  Note that it is allowed for two objects to have identical hash codes (`o1.hashCode.equals(o2.hashCode)`) 
    *  请注意，允许两个对象具有相同的哈希码
    *  但是(`o1.hashCode.equals(o2.hashCode)`)不等于(`o1.equals(o2)` returns `false`)
-   *  not be equal (`o1.equals(o2)` returns `false`).  A degenerate implementation could always return `0`.
+   *  yet not be equal (`o1.equals(o2)` returns `false`).  A degenerate implementation could always return `0`.
    *  However, it is required that if two objects are equal (`o1.equals(o2)` returns `true`) that they have identical hash codes (`o1.hashCode.equals(o2.hashCode)`).  Therefore, when overriding this method, be sure to verify that the behavior is consistent with the `equals` method.
    但是，如果两个对象相等（`o1.equals（o2）`返回`true`），
    则它们必须具有相同的哈希码（`o1.hashCode.equals（o2.hashCode）`））。

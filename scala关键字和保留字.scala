@@ -1,14 +1,29 @@
+-----------------------------------------------------------
+                      scala保留字                        ||
+===========================================================
+abstract    case        catch       class       def      ||
+do          else        extends     false       final    ||
+finally     for         forSome     if          implicit ||
+import      lazy        macro       match       new      ||
+null        object      override    package     private  ||
+protected   return      sealed      super       this     ||
+throw       trait       try         true        type     ||
+val         var         while       with        yield    ||
+_    :    =    =>    <-    <:    <%     >:    #    @     ||
+===========================================================
+
 Keywords/reserved symbols
 
 关键字/保留符号
 Scala中有几个特殊的符号
 不能被定义或用作方法名称。其中两个被认为是适当的关键字，而其他的只是“保留”。他们是：
 
-// Keywords
+// 
+--------------------------------------Keywords-----------------------------------------------
 <-  	   // 在for循环中将生成器与其标识符分开
 =>  	   // 在匹配表达式和部分函数中用来指示一个条件表达式，
 		   // 在函数类型中指示一个返回类型，在函数字面量中用来定义函数体
-// Reserved
+--------------------------------------Reserved-----------------------------------------------
 ( )        // Delimit expressions and parameters定义表达式和参数
 [ ]        // Delimit type parameters分隔类型参数
 { }        // Delimit blocks分隔块
@@ -59,14 +74,19 @@ val        // 定义一个新的不可变的值
 var        // 定义一个新的可变的变量
 with       // 为一个类定义基特质trait
 yield      // 从一个for循环中的得出返回值
-
-
-
-
-
-
-
-
-
-
-
+-------------------------------------------------------------------------------------
+通配符示例：
+import scala._    // Wild card -- all of Scala is imported通配符--所有scala.下的包都导入
+import scala.{ Predef => _, _ } // Exclusion, everything except Predef
+							    // 排除，除Predef之外的一切
+def f[M[_]]       // Higher kinded type parameter
+def f(m: M[_])    // Existential type
+_ + _             // Anonymous function placeholder parameter匿名函数占位符参数
+m _               // Eta expansion of method into method value
+m(_)              // Partial function application偏函数应用程序
+_ => 5            // Discarded parameter
+case _ =>         // Wild card pattern -- matches anything通配符模式--匹配任何东西
+f(xs: _*)         // Sequence xs is passed as multiple parameters to 
+				  // 将序列xs作为多个参数传递给f(ys: T*)
+case Seq(xs @ _*) // Identifier xs is bound to the whole matched sequence
+				  // 标识符xs绑定到整个匹配的序列
