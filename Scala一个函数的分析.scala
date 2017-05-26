@@ -1,4 +1,5 @@
 #Scala#一个函数的分析
+来源：http://www.2gua.info/post/19
 
 scala> def twice(op: Double => Double, x: Double) = op(op(x))
 twice: (op: Double => Double, x: Double)Double

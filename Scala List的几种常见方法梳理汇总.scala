@@ -1,4 +1,5 @@
 Scala List的几种常见方法梳理汇总
+来源：http://www.2gua.info/post/3
 
 创建列表
 scala> val days = List("Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday")
